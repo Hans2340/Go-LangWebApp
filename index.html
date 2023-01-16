@@ -3,10 +3,26 @@
 <head>
   <title>User Data</title>
 </head>
-<body>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<style>
+table, th, td {
+  border: 1px solid black;
+  border-collapse: collapse;
+}
 
-  //
-  <table id="users-table">
+table.center {
+  margin-left: auto; 
+  margin-right: auto;
+}
+</style>
+<body style="text-align: center; background-color: lightblue; ">
+    
+
+
+  
+  <div style="text-align:center;      ">
+<h3> Current User:</h3>
+  <table align="center" id="users-table">
     <thead>
       <tr>
         <th>ID</th>
@@ -28,8 +44,9 @@
       {{ end }}
     </tbody>
   </table>
+  
 
-
+  <h3>Insert New User</h3>
   <form action="/create" method="post">
     <input type="text" name="name" placeholder="Name">
     <input type="text" name="email" placeholder="Email">
@@ -37,9 +54,10 @@
     <input type="text" name="status" placeholder="Status">
     <button type="submit">Create User</button>
   </form>
-
+<br><br>
+<h3>Update</h3>
   <button id="refresh-button">Refresh</button>
-  
+</div>
 
   
 </body>
@@ -72,6 +90,10 @@
     });
   }
 </script>
+
+
+
+
 
 
 
