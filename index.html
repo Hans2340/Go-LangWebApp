@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>User Data</title>
+</head>
+<body>
+
+  //
+  <table id="users-table">
+    <thead>
+      <tr>
+        <th>ID</th>
+        <th>Name</th>
+        <th>Email</th>
+        <th>Gender</th>
+        <th>Status</th>
+      </tr>
+    </thead>
+    <tbody>
+      {{ range . }}
+      <tr>
+        <td>{{ .ID }}</td>
+        <td>{{ .Name }}</td>
+        <td>{{ .Email }}</td>
+        <td>{{ .Gender }}</td>
+        <td>{{ .Status }}</td>
+      </tr>
+      {{ end }}
+    </tbody>
+  </table>
+
+
+  <form action="/create" method="post">
+    <input type="text" name="name" placeholder="Name">
+    <input type="text" name="email" placeholder="Email">
+    <input type="text" name="gender" placeholder="Gender">
+    <input type="text" name="status" placeholder="Status">
+    <button type="submit">Create User</button>
+  </form>
+
+  <button id="refresh-button">Refresh</button>
+  
+
+  
+</body>
+</html>
+
+<script>
+  var refreshButton = document.getElementById("refresh-button");
+  if (refreshButton) {
+    refreshButton.addEventListener("click", function() {
+      // Make GET request to API to retrieve updated user data
+      fetch("https://gorest.co.in/public/v2/users", {
+        method: "GET",
+        headers: {
+          "Authorization": "Bearer acb7f761573e6f253cc1fd40f95cad4a20bf9a1ca4b1f2f71309ec190746d5fb"
+        }
+      })
+      .then(response => response.json())
+      .then(data => {
+        // Update the user data in the table
+        let table = document.getElementById("users-table");
+        let newData = "";
+        data.forEach(User => {
+          newData += `<tr><td>${User.ID}</td><td>${User.Name}</td><td>${User.Email}</td><td>${User.Gender}</td><td>${User.Status}</td></tr>`;
+        });
+        table.innerHTML = newData;
+      })
+      .catch(error => {
+        console.error("Error fetching data:", error);
+      });
+    });
+  }
+</script>
+
+
+
+
