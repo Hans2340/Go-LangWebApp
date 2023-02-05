@@ -1,9 +1,12 @@
 <!DOCTYPE html>
 <html>
 <head>
-  <title>User Data</title>
-</head>
-<meta name="viewport" content="width=device-width, initial-scale=1">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+    <title>Demo</title>
+    <link rel="stylesheet" href="/assets/style.css" /></head>
 <style>
 table, th, td {
   border: 1px solid black;
@@ -21,7 +24,7 @@ table.center {
 
   
   <div style="text-align:center;      ">
-<h3> Current User:</h3>
+<h3>Current User:</h3>
   <table align="center" id="users-table">
     <thead>
       <tr>
@@ -44,52 +47,42 @@ table.center {
       {{ end }}
     </tbody>
   </table>
-  
+<br><br>
+
 
   <h3>Insert New User</h3>
   <form action="/create" method="post">
-    <input type="text" name="name" placeholder="Name">
-    <input type="text" name="email" placeholder="Email">
-    <input type="text" name="gender" placeholder="Gender">
-    <input type="text" name="status" placeholder="Status">
+    <input type="text" name="name" placeholder="Name"><br><br>
+    <input type="text" name="email" placeholder="Email"><br><br>
+    <input type="text" name="gender" placeholder="Gender"><br><br>
+    <input type="text" name="status" placeholder="Status"><br><br>
     <button type="submit">Create User</button>
   </form>
 <br><br>
+
+<h3>Insert New post</h3>
+<form action="/create:post" method="post">
+  <input type="text" name="user_id" placeholder="User ID"><br><br>
+  <input type="text" name="title" placeholder="Title"><br><br>
+  <input type="text" name="body" placeholder="Body"><br><br>
+  <button type="submit">Create Posting</button>
+</form>
+<br><br>
+  <h3>Delete User</h3>
+  <form action="/delete:user" method="delete">
+    <label for="id">ID:</label>
+    <input type="text" id="id" name="user_id">
+    <input type="submit" value="Delete">
+  </form>
 <h3>Update</h3>
-  <button id="refresh-button">Refresh</button>
 </div>
+<form action="/update" method="patch">
+  <button type="submit">Refresh User</button>
+</form>
 
   
 </body>
 </html>
-
-<script>
-  var refreshButton = document.getElementById("refresh-button");
-  if (refreshButton) {
-    refreshButton.addEventListener("click", function() {
-      // Make GET request to API to retrieve updated user data
-      fetch("https://gorest.co.in/public/v2/users", {
-        method: "GET",
-        headers: {
-          "Authorization": "Bearer acb7f761573e6f253cc1fd40f95cad4a20bf9a1ca4b1f2f71309ec190746d5fb"
-        }
-      })
-      .then(response => response.json())
-      .then(data => {
-        // Update the user data in the table
-        let table = document.getElementById("users-table");
-        let newData = "";
-        data.forEach(User => {
-          newData += `<tr><td>${User.ID}</td><td>${User.Name}</td><td>${User.Email}</td><td>${User.Gender}</td><td>${User.Status}</td></tr>`;
-        });
-        table.innerHTML = newData;
-      })
-      .catch(error => {
-        console.error("Error fetching data:", error);
-      });
-    });
-  }
-</script>
 
 
 
